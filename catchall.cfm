@@ -1,13 +1,18 @@
 Hello world
 <cfscript>
-	ormReload();
+/*	ormReload();*/
+
+	variables.formHtml = '';
+
 	transaction {
 		check = entityLoadByPK( 'check', '98CDF2C1-3EB6-40BA-A602-8CF8D6A10BA9' );
 	}
 
 
 	variables.form = createObject( 'component', 'controller.form.build' );
-	variables.form.init([4,8]);
+	variables.form.init([5,7]);
+
+
 	variables.formHtml = variables.form.get( check );
 </cfscript>
 

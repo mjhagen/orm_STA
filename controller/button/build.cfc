@@ -1,6 +1,6 @@
 component {
 
-	public string function build( required array buttons )
+	public string function get( required array buttons )
 	{
 		for ( var element in arguments.buttons )
 		{

@@ -23,7 +23,9 @@ component extends='controller.form.section'{
 		}
 
 		var result = '';
-		var properties = getMetadata( arguments.formEntity ).properties;
+		var meta = getMetadata( arguments.formEntity );
+		var properties = meta.properties;
+		var namebase = meta.fullname;
 		var value = '';
 
 		if ( structKeyExists( arguments, 'fieldOrder' ) )
@@ -36,6 +38,7 @@ component extends='controller.form.section'{
 					{
 						value = !isNull( arguments.formEntity[ 'get' & element.name ]() ) ?
 							arguments.formEntity[ 'get' & element.name ]() : '';
+						element.namebase = namebase;
 						result &= this.build( element, value );
 					}
 				}
@@ -54,6 +57,7 @@ component extends='controller.form.section'{
 				{
 					value = !isNull( arguments.formEntity[ 'get' & element.name ]() ) ?
 						arguments.formEntity[ 'get' & element.name ]() : '';
+					element.namebase = namebase;
 					result &= this.build( element, value );
 				}
 			}

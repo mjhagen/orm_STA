@@ -1,4 +1,4 @@
-component extends="error.report" {
+component extends="tools.translator.translate" {
 
 	public string function build( required struct element, required string value )
 	{
@@ -25,7 +25,7 @@ component extends="error.report" {
 
 			if ( arguments.element.view_type NEQ 'hidden' )
 			{
-				result = this.wrap( element.name, result );
+				result = this.wrap( element.name, element.namebase, result );
 			}
 
 			return result;
@@ -82,7 +82,7 @@ component extends="error.report" {
 		return local.result;
 	}
 
-	private string function wrap( required string name, required string context )
+	private string function wrap( required string name, required string namebase, required string context )
 	{
 		var result = '';
 
