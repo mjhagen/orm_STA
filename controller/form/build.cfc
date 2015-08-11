@@ -27,6 +27,7 @@ component extends='controller.form.section'{
 		var properties = meta.properties;
 		var namebase = meta.fullname;
 		var value = '';
+		var fn = '';
 
 		if ( structKeyExists( arguments, 'fieldOrder' ) )
 		{
@@ -36,8 +37,10 @@ component extends='controller.form.section'{
 				{
 					if ( element.name eq orderElement )
 					{
-						value = !isNull( arguments.formEntity[ 'get' & element.name ]() ) ?
-							arguments.formEntity[ 'get' & element.name ]() : '';
+						fn = arguments.formEntity[ 'get' & element.name ];
+
+						value = !isNull( fn() ) ?
+							fn() : '';
 						element.namebase = namebase;
 						result &= this.build( element, value );
 					}
@@ -45,25 +48,27 @@ component extends='controller.form.section'{
 			}
 
 		} else {
-			properties.sort(function(e1, e2){
-				var e1Compare = e1.view_order ?: 99;
-				var e2Compare = e2.view_order ?: 99;
-				return sgn(e1Compare - e2Compare);
-			});
+			// todo: find ACF alternative
+			// properties.sort(function(e1, e2){
+			// 	var e1Compare = e1.view_order ?: 99;
+			// 	var e2Compare = e2.view_order ?: 99;
+			// 	return sgn(e1Compare - e2Compare);
+			// });
 
 			for ( var element in properties )
 			{
 				if ( !structKeyExists( element, 'fieldtype' ) || !find ( '-to-', element.fieldtype ) )
 				{
-					value = !isNull( arguments.formEntity[ 'get' & element.name ]() ) ?
-						arguments.formEntity[ 'get' & element.name ]() : '';
+					fn = arguments.formEntity[ 'get' & element.name ];
+					value = !isNull( fn() ) ?
+						fn() : '';
 					element.namebase = namebase;
 					result &= this.build( element, value );
 				}
 			}
 		}
 
-		result = this.wrapper( result, arguments.id, arguments.action, arguments.classes );
+		result = wrapper( result, arguments.id, arguments.action, arguments.classes );
 
 		return result;
 	}
@@ -71,11 +76,11 @@ component extends='controller.form.section'{
 	private string function wrapper( required string content, required string id, required string action, required string classes, boolean hasFile = false ) {
 		if ( !len( arguments.id ) )
 		{
-			var id = 'form_' & randRange( 1000, 9999 );
+			local.id = 'form_' & randRange( 1000, 9999 );
 		} else {
-			var id = arguments.id;
+			local.id = arguments.id;
 		};
-		var content = arguments.content;
+		local.content = arguments.content;
 		var result = '';
 
 		savecontent variable ='local.result' {

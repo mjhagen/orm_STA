@@ -1,5 +1,7 @@
 component {
 	this.name = 'Scheduled Task App';
+	this.mappings['/'] = getDirectoryFromPath( getBaseTemplatePath());
+	this.sessionManagement = true;
 
 	this.datasource = 'ScheduledTasks';
 

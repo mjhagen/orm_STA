@@ -2,7 +2,7 @@ component extends="tools.translator.translate" {
 
 	public string function build( required struct element, required string value )
 	{
-		var element = arguments.element;
+		local.element = arguments.element;
 		var isRequired = false;
 		var result = '';
 
@@ -17,7 +17,8 @@ component extends="tools.translator.translate" {
 			}
 
 			try {
-				result = this[ 'build_' & element.view_type ]( element, arguments.value, isRequired );
+        var fn = this[ 'build_' & element.view_type ];
+				result = fn( element, arguments.value, isRequired );
 			} catch ( any e ) {
 				this.error_console( 'field: ' & element.name & ' - ' & e.message );
 				return '';

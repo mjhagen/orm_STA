@@ -27,7 +27,7 @@ component {
 
 		);
 
-		httpCall.send();
+		// httpCall.send();
 	}
 
 }
