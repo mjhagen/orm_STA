@@ -24,7 +24,7 @@ component {
 		application.initialized = now();
 
 		/* Basic Error Settings */
-		application.error.type = 'console';
+		application.error.type = ['console','screen'];
 		application.error.name = this.name;
 		application.error.console.server = 'http://192.168.11.200/endpoint';
 		application.error.console.port = '8090';

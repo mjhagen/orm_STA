@@ -6,18 +6,11 @@ component extends='controller.form.section'{
 			left: arguments.cols[ 1 ],
 			right: arguments.cols [ 2 ]
 		};
-		variables.script = {
-			scripts: "",
-			header: "",
-			footer: "</script>",
-			body: "",
-			included: []
-		};
 	}
 
 	public string function get( required formEntity, string id = '', string action = '##', string classes='form-horizontal', array fieldOrder )
 	{
-		if ( !structKeyExists( variables, 'script') )
+		if ( !structKeyExists( variables, 'col') )
 		{
 			this.init();
 		}
@@ -72,6 +65,8 @@ component extends='controller.form.section'{
 		}
 
 		result = wrapper( result, arguments.id, arguments.action, arguments.classes );
+
+		result = this.template( result );
 
 		return result;
 	}

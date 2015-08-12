@@ -5,9 +5,9 @@
             rel="tooltip"
             for="#arguments.name#"
             class="col-sm-#variables.col.left# control-label no-padding-right"
-			title="#this.translate( 'form.tooltip.' & arguments.namebase & '.' & arguments.name )#"
+			title="#this.translate( 'form.tooltip.' & arguments.fullName & '.' & arguments.name )#"
         >
-			#this.translate( 'form.label.' & arguments.namebase & '.' & arguments.name )#
+			#this.translate( 'form.label.' & arguments.fullName & '.' & arguments.name )#
             <i class="fa fa-question-circle"></i>
         </label>
 	    <div class="col-sm-#variables.col.right#">
