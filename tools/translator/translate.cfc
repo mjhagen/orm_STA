@@ -51,7 +51,7 @@ component extends='tools.error.report' {
 
 		}
 
-		this.error_console( 'new translation: ' & data.locale & ' - ' & data.namespace );
+		this.report( 'new translation: ' & data.locale & ' - ' & data.namespace );
 	}
 
 }

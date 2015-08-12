@@ -23,9 +23,9 @@ component extends='controller.form.section'{
 		}
 
 		var result = '';
-		var meta = getMetadata( arguments.formEntity );
-		var properties = meta.properties;
-		var namebase = meta.fullname;
+		var properties = this.meta( arguments.formEntity, 'properties' );
+		var fullName = this.meta( arguments.formEntity, 'fullname' );
+		var errorName = this.meta( arguments.formEntity );
 		var value = '';
 
 		if ( structKeyExists( arguments, 'fieldOrder' ) )
@@ -38,7 +38,8 @@ component extends='controller.form.section'{
 					{
 						value = !isNull( arguments.formEntity[ 'get' & element.name ]() ) ?
 							arguments.formEntity[ 'get' & element.name ]() : '';
-						element.namebase = namebase;
+						element.fullName = fullName;
+						element.errorName = errorName;
 						result &= this.build( element, value );
 					}
 				}
@@ -57,7 +58,8 @@ component extends='controller.form.section'{
 				{
 					value = !isNull( arguments.formEntity[ 'get' & element.name ]() ) ?
 						arguments.formEntity[ 'get' & element.name ]() : '';
-					element.namebase = namebase;
+					element.fullName = fullName;
+					element.errorName = errorName;
 					result &= this.build( element, value );
 				}
 			}
@@ -79,11 +81,10 @@ component extends='controller.form.section'{
 		var result = '';
 
 		savecontent variable ='local.result' {
-			include '/render/form/_wrap.cfm';
+			include '/render/form/_form.cfm';
 		}
 		return result;
 	}
-
 
 
 }
