@@ -26,7 +26,7 @@ component extends='controller.base.template' {
 
 			if ( arguments.element.view_type NEQ 'hidden' )
 			{
-				result = this.wrap( element.name, element.fullName, result );
+				result = this.wrap( result, element.fullName, element.name );
 			}
 
 			return result;

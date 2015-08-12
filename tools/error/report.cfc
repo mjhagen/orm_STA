@@ -2,12 +2,15 @@ component extends='tools.functions' {
 
 	public void function report( required struct error )
 	{
-		if ( !structKeyExists( application.error, 'type' ) )
+		if ( !structKeyExists( application.error, 'type' ) || !isArray( application.error.type )  )
 		{
-			application.error.type = 'screen';
+			application.error.type = ['screen'];
 		}
 
-		this[ 'error_' & application.error.type ]( arguments.error );
+		for ( var element in application.error.type )
+		{
+			this[ 'error_' & element ]( arguments.error );
+		}
 	}
 
 	public void function error_console( required struct error )

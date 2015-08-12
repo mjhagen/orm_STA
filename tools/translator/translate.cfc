@@ -51,7 +51,11 @@ component extends='tools.error.report' {
 
 		}
 
-		this.report( 'new translation: ' & data.locale & ' - ' & data.namespace );
+		this.report({
+			message: 'new translation: ' & data.locale & ' - ' & data.namespace,
+			stacktrace: [],
+			tagContext: []
+		});
 	}
 
 }

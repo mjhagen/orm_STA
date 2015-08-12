@@ -1,4 +1,3 @@
-Hello world
 <cfscript>
 	variables.formHtml = '';
 
@@ -11,36 +10,15 @@ Hello world
 	variables.form.init([5,7]);
 
 
-	variables.formHtml = variables.form.get( check );
+	variables.html = variables.form.get( check );
 
+	variables.error = createObject( 'component', 'controller.error.build');
+
+	variables.html = variables.error.get('404');
 	/*variables.error = createObject( 'component', 'horse' );*/
 
 </cfscript>
 
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <link href="/assets/css/screen.css" rel="stylesheet">
-    <link href="/assets/css/print.css" rel="stylesheet">
-    <link href="/assets/css/ie.css" rel="stylesheet">
-    <link href="/assets/css/styles.css" rel="stylesheet">
-    <link href="/assets/css/font-awesome.css" rel="stylesheet">
-    <link href="/assets/css/ace.css" rel="stylesheet">
-
-
-</head>
-<body>
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-8">
-				<cfoutput>
-					#variables.formHtml#
-				</cfoutput>
-			</div>
-		</div>
-
-	</div>
-</body>
-</html>
+<cfoutput>
+	#variables.html#
+</cfoutput>
