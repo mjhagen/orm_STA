@@ -2,7 +2,7 @@ component extends='controller.base.template' {
 
 	public string function build( required struct element, required string value )
 	{
-		var element = arguments.element;
+		local.element = arguments.element;
 		var isRequired = false;
 		var result = '';
 
@@ -17,7 +17,8 @@ component extends='controller.base.template' {
 			}
 
 			try {
-				result = this[ 'build_' & element.view_type ]( element, arguments.value, isRequired );
+        var fn = this[ 'build_' & element.view_type ];
+				result = fn( element, arguments.value, isRequired );
 			} catch ( any e ) {
 				e.special = 'component: ' & element.errorName & ' - field: ' & element.name & ' - ' & e.message;
 				this.report( e );

@@ -40,7 +40,7 @@ component persistent = 'true' table = 'interval' {
 	property
 			name =          'check'
 			fieldtype =     'one-to-one'
-			cfc =           'check'
+			cfc =           'model.checks.check'
 			fkcolumn =      'fk_check'
 			view_type =     'false'
 			view_order =    6;

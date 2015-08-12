@@ -2,6 +2,7 @@ component {
 
 	/* Application Settings */
 	this.name = 'Scheduled Task App';
+	this.mappings['/'] = getDirectoryFromPath( getBaseTemplatePath());
 	this.datasource = 'ScheduledTasks';
 	this.applicationtimeout = createTimespan(0, 3, 0, 0);
 	this.sessiontimeout = createTimespan(0, 0, 30, 0);

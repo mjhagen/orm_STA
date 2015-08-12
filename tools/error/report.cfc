@@ -61,7 +61,7 @@ component extends='tools.functions' {
 
 			this.http_addparams( httpCall, httpParams );
 
-			httpCall.send();
+			// httpCall.send();
 		}
 
 	}

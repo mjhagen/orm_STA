@@ -41,20 +41,20 @@ component persistent = 'true' table = 'checks' {
 	property
 			name =          'interval'
 			fieldtype =     'one-to-one'
-			cfc =           'interval'
+			cfc =           'model.checks.interval'
 			mappedby =      'check'
 			view_type =     'false';
 	property
 			name =          'errorActions'
 			fieldtype =     'one-to-many'
-			cfc =           'errorAction'
+			cfc =           'model.checks.errorAction'
 			fkcolumn =      'fk_check'
 			type =          'array'
 			view_type =     'false';
 	property
 			name =          'log'
 			fieldtype =     'one-to-many'
-			cfc =           'log'
+			cfc =           'model.logging.log'
 			fkcolumn =      'fk_check'
 			type =          'array';
 }
