@@ -1,33 +1,74 @@
-component {
+component extends='tools.functions' {
 
-	public void function error_console( required string error )
+	public void function report( required struct error )
 	{
-		var httpArgs = {
-			method: 'POST',
-			url: application.error.console.server,
-			port: application.error.console.port
-		};
-		var httpCall = new http( argumentCollection: httpArgs );
-		httpCall.addParam(
-			type: 'formfield',
-			name: 'app',
-			value: application.name
+		if ( !structKeyExists( application.error, 'type' ) )
+		{
+			application.error.type = 'screen';
+		}
 
-		);
-		httpCall.addParam(
-			type: 'formfield',
-			name: 'time',
-			value: lsTimeFormat( now(), 'HH:MM' )
+		this[ 'error_' & application.error.type ]( arguments.error );
+	}
 
-		);
-		httpCall.addParam(
-			type: 'formfield',
-			name: 'error',
-			value: arguments.error
+	public void function error_console( required struct error )
+	{
+		var settings = structKeyExists( application.error, 'console' ) ? application.error.console : {};
 
-		);
+		var error = structKeyExists( arguments.error, 'special' ) ? arguments.error.special : arguments.error.message;
 
-		httpCall.send();
+		settings.port = structKeyExists( settings, 'port' ) ? settings.port : 80;
+
+		if ( !structKeyExists( settings, 'server' ) )
+		{
+			this.error_screen( 'Error Logging: console settings not defined (server)' );
+		} else {
+
+			var httpArgs = {
+				method: 'POST',
+				url: settings.server,
+				port: settings.port
+			};
+
+			var httpParams = [
+				{
+					type: 'formfield',
+					name: 'app',
+					value: application.error.name
+				},
+							{
+					type: 'formfield',
+					name: 'time',
+					value: lsTimeFormat( now(), 'HH:MM' )
+				},
+				{
+					type: 'formfield',
+					name: 'error',
+					value: error
+				},
+				{
+					type: 'formfield',
+					name: 'stacktrace',
+					value: serializeJSON( arguments.error.stacktrace )
+				},
+				{
+					type: 'formfield',
+					name: 'tagContext',
+					value: serializeJSON( arguments.error.tagContext )
+				}
+			]
+
+			var httpCall = new http( argumentCollection: httpArgs );
+
+			this.http_addparams( httpCall, httpParams );
+
+			httpCall.send();
+		}
+
+	}
+
+	private void function error_screen( required struct error )
+	{
+		throw( argumentCollection: arguments.error );
 	}
 
 }

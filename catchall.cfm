@@ -1,7 +1,5 @@
 Hello world
 <cfscript>
-/*	ormReload();*/
-
 	variables.formHtml = '';
 
 	transaction {
@@ -14,6 +12,9 @@ Hello world
 
 
 	variables.formHtml = variables.form.get( check );
+
+	/*variables.error = createObject( 'component', 'horse' );*/
+
 </cfscript>
 
 <!doctype html>

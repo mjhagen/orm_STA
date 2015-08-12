@@ -1,11 +1,10 @@
-component {
+component extends='controller.base.template' {
 
-	public string function get( required array buttons )
+	public string function get( array buttons )
 	{
-		for ( var element in arguments.buttons )
-		{
-
-		}
+		writeDump(arguments);
+		writeDump(cgi);
+		writeDump(url);
 	}
 
 }

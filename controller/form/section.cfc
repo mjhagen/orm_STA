@@ -1,4 +1,4 @@
-component extends="tools.translator.translate" {
+component extends='controller.base.template' {
 
 	public string function build( required struct element, required string value )
 	{
@@ -19,13 +19,14 @@ component extends="tools.translator.translate" {
 			try {
 				result = this[ 'build_' & element.view_type ]( element, arguments.value, isRequired );
 			} catch ( any e ) {
-				this.error_console( 'field: ' & element.name & ' - ' & e.message );
+				e.special = 'component: ' & element.errorName & ' - field: ' & element.name & ' - ' & e.message;
+				this.report( e );
 				return '';
 			}
 
 			if ( arguments.element.view_type NEQ 'hidden' )
 			{
-				result = this.wrap( element.name, element.namebase, result );
+				result = this.wrap( element.name, element.fullName, result );
 			}
 
 			return result;
@@ -80,17 +81,6 @@ component extends="tools.translator.translate" {
 			include '/render/form/_textarea.cfm';
 		}
 		return local.result;
-	}
-
-	private string function wrap( required string name, required string namebase, required string context )
-	{
-		var result = '';
-
-		savecontent variable='local.result' {
-			include '/render/form/_element.cfm';
-		}
-
-		return result;
 	}
 
 }
